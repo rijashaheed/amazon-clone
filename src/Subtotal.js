@@ -1,3 +1,4 @@
+/*eslint-disable */
 import React from "react";
 import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
@@ -6,7 +7,6 @@ import { getBasketTotal } from "./reducer";
 
 function Subtotal() {
 	const [{ basket }, dispatch] = useStateValue();
-	var y = parseInt(0);
 	// var sum1 = 0;
 
 	// const sumTotal = () => {
