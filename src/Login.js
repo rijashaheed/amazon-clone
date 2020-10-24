@@ -1,21 +1,37 @@
 /*eslint-disable */
 import React, { useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "./firebase";
 
 const Login = () => {
+	const history = useHistory();
 	const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
-  const signIn = () => {
-    e.preventDefault();
+	const [password, setPassword] = useState("");
 
-  }
+	const signIn = (e) => {
+		e.preventDefault();
 
-  const register = () => {
-    e.preventDefault();
+		auth
+			.signInWithEmailAndPassword(email, password)
+			.then((auth) => {
+				history.push("/");
+				console.log("logged in");
+			})
+			.catch((error) => alert(error.message));
+	};
 
-  }
+	const register = (e) => {
+		e.preventDefault();
+
+		auth
+			.createUserWithEmailAndPassword(email, password)
+			.then((auth) => {
+				//sucessfully creates a new user with email and password
+				console.log(auth);
+			})
+			.catch((error) => alert(error.message));
+	};
 
 	return (
 		<div className="login">
@@ -45,7 +61,9 @@ const Login = () => {
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 
-					<button className="login__signInButton" type="submit" onClick={signIn}>Sign In</button>
+					<button className="login__signInButton" type="submit" onClick={signIn}>
+						Sign In
+					</button>
 				</form>
 
 				<p>
@@ -54,7 +72,7 @@ const Login = () => {
 					Ads Notice.
 				</p>
 
-				<button className="login__registerButton">
+				<button className="login__registerButton" onClick={register}>
 					Create you Amazon Account
 				</button>
 			</div>

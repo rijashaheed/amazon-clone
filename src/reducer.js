@@ -1,5 +1,6 @@
 export const initialState = {
 	basket: [],
+	user: null,
 };
 
 //Selector
@@ -18,8 +19,8 @@ const reducer = (state, action) => {
 			const index = state.basket.findIndex(
 				(basketItem) => basketItem.id === action.id
 			);
-      let newBasket = [...state.basket];  //putting the state of basket in an array in 
-                                          // order to get index of the products from the array
+			let newBasket = [...state.basket]; //putting the state of basket in an array in
+			// order to get index of the products from the array
 			if (index >= 0) {
 				newBasket.splice(index, 1);
 			} else {
@@ -31,6 +32,12 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				basket: newBasket,
+			};
+
+		case "SET_USER":
+			return {
+				...state,
+				user: action.user,
 			};
 
 		default:
