@@ -10,6 +10,13 @@ import Payment from "./Payment";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const promise = loadStripe(
+	"pk_test_51IQFNnABMme2p88L7K40z5mzTflZfKa1KbZusrRrQBOcnrU662qBcBzx4x4ykwgMa5QNzCC7vEsAH8fhjrc2rts100cxtV0dMe"
+);
+
 function App() {
 	// eslint-disable-next-line
 	const [{ basket }, dispatch] = useStateValue();
@@ -48,7 +55,9 @@ function App() {
 					</Route>
 					<Route path="/payment">
 						<Header />
-						<Payment />
+						<Elements stripe={promise}>
+							<Payment />
+						</Elements>
 					</Route>
 					<Route path="/">
 						<Header />
